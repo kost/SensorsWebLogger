@@ -42,6 +42,13 @@ public class HandleSensors {
             if (txtView != null) txtView.append("No ambient temperature sensor!\n");
         }
 
+	sensorSingle = sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE);
+	if (sensorSingle != null) {
+	    sensorClasses.add(SensorTemperature.class);
+	} else {
+	    if (txtView != null) txtView.append("No device temperature sensor!\n");
+	}
+
         sensorSingle = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         if (sensorSingle != null) {
             sensorClasses.add(SensorPressure.class);
