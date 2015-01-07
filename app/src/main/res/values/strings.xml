@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sensors Web Logger</string>
+    <string name="hello_world">Welcome to SensorsWebLogger</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_startservice">Start Service</string>
+    <string name="action_stopservice">Stop Service</string>
+    <string name="action_dispsensors">Display Sensors</string>
+
+</resources>
