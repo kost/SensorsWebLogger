@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         txtView=(TextView)findViewById(R.id.txtDisplay);
-        txtView.setText("Happy Birthday Dobrica! Initializing...\n");
+        txtView.setText("Initializing...\n");
 
         // Keep textview scrolled down
         scroller = (ScrollView) findViewById(R.id.scrollView);
