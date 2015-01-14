@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,27 +30,66 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         txtView=(TextView)findViewById(R.id.txtDisplay);
-        txtView.setText("Initializing...\n");
 
         // Keep textview scrolled down
         scroller = (ScrollView) findViewById(R.id.scrollView);
+        /*
         scroller.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    scroller.fullScroll(View.FOCUS_DOWN);
+                    scrollToBottom();
                 }
             }
         });
+        */
+        txtView.addTextChangedListener (new TextWatcher() {
 
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                scrollToBottom();
+            }
+        });
+
+        txtView.setText("Initializing...\n");
         MySensors = new HandleSensors(getApplicationContext(),txtView);
+        if (savedInstanceState != null) {
+            txtView.setText(savedInstanceState.getString("txtView"));
+        } else {
+            txtView.append("Logging to "+sharedPrefs.getString("pref_url","http://127.0.0.1/")+"\n");
+            txtView.append("Change if URL is not good and start service!\n");
+        }
 
-        txtView.append("Logging to "+sharedPrefs.getString("pref_url","http://127.0.0.1/")+"\n");
-        txtView.append("Change if URL is not good and start service!\n");
-
-        scroller.fullScroll(View.FOCUS_DOWN);
+        // scroller.fullScroll(View.FOCUS_DOWN);
     }
+
+    private void scrollToBottom()
+    {
+        scroller.post(new Runnable()
+        {
+            public void run()
+            {
+                scroller.smoothScrollTo(0, txtView.getBottom());
+            }
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("txtView",txtView.getText().toString());
+
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
