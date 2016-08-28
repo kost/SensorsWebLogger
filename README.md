@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kost/SensorsWebLogger.png)](https://travis-ci.org/kost/SensorsWebLogger)
+
 # SensorsWebLogger
 Android application - Sensors Web Logger
 
